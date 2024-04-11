@@ -1,0 +1,285 @@
+#server:
+#  address:  192.168.0.25
+#  port: 13100
+#  servlet:
+#    context-path: /${spring.application.name}
+#  cluster:
+#    node:
+#      #集群节点类型
+#      #master 自动开启任务队列 定时任务
+#      #slave 关闭任务队列 定时任务
+#      type: master
+#  tomcat:
+#    max-swallow-size: -1
+#    threads:
+#      max: 200
+#    accept-count: 500
+#    compressio:
+#      enabled: true
+#      mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css,image/*
+#spring:
+#  http:
+#    encoding:
+#      charset: utf-8
+#      force: true
+#      enabled: true
+#  #设置静态文件路径，js,css等
+#  mvc:
+#    static-path-pattern: /**
+#    pathmatch:
+#      use-suffix-pattern: true
+#  resource:
+#    static-locations: classpath:/static/,classpath:/public/
+#  #json 时间戳统一转换
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
+#  #设置上传文件大小阀值
+#  servlet:
+#    multipart:
+#      max-file-size: 50MB
+#      max-request-size: 50MB
+#  data:
+#    mongodb:
+#      uri: ${reach.mongodb.url}
+#  datasource:
+#    name: druidDataSource
+#    driver-class-name: ${reach.datasource.plm.driver-class-name}
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    # 全局druid参数，绝大部分值和默认保持一致
+#    druid:
+#      url: ${reach.datasource.plm.url}
+#      username: ${reach.datasource.plm.username}
+#      password: ${reach.datasource.plm.password}
+#      # 连接池的配置信息
+#      # 初始化大小，最小，最大
+#      initial-size: ${reach.datasource.plm.initial-size:50}
+#      # 最小空闲数
+#      min-idle: ${reach.datasource.plm.min-idle:50}
+#      # 最大连接数
+#      max-active: ${reach.datasource.plm.max-active:200}
+#      #配置获取连接等待超时时间
+#      max-wait: 60000
+#      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+#      time-between-eviction-runs-millis: 60000
+#      # 配置一个连接在池中最小生存的时间，单位是毫秒
+#      min-evictable-idle-time-millis: 30000
+#      validation-query: SELECT 1 FROM DUAL
+#      test-while-idle: true
+#      test-on-borrow: false
+#      test-on-return: false
+#      # 打开PSCache，并且指定每个连接上PSCache的大小
+#      pool-prepared-statements: true
+#      max-open-prepared-statements: 50
+#      max-pool-prepared-statement-per-connection-size: 20
+#      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#      filters: stat,slf4j
+#      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+#      connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+#      web-stat-filter:
+#        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+#        url-pattern: /*
+#      stat-view-servlet:
+#        #白名单IP
+#        allow: 127.0.0.1
+#        #黑名单IP
+#        deny: 192.168.0.106
+#        #登录账号和密码
+#        login-username: admin
+#        login-password: admin
+#        #启用重置数据功能
+#        reset-enable: true
+#        #开启Web监控界面
+#        enabled: true
+#  jpa:
+#    properties:
+#      hibernate:
+#        hql:
+#          bulk_id_strategy: org.hibernate.hql.spi.id.inline.InlineIdsOrClauseBulkIdStrategy
+#        hbm2ddl:
+#          auto: none
+#        dialect: ${reach.datasource.dialect}
+#        format_sql: false
+#        ejb:
+#          interceptor: com.glaway.foundation.core.aop.HiberAspect
+#        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+#    hibernate:
+#      naming:
+#        #驼峰命名列名不自动添加下划线
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#    show-sql: false
+#  main:
+#    allow-bean-definition-overriding: true
+#  cloud:
+#    nacos:
+#      discovery:
+#        metadata:
+#          management:
+#            context-path: ${server.servlet.context-path}/actuator
+#  #redis 配置
+#  redis:
+#    database: 0
+#    host: ${reach.redis.host}
+#    password: ${reach.redis.password}
+#    port: ${reach.redis.port}
+#    jedis:
+#      pool:
+#        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+#        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+#        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+#        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+#      shutdown-timeout: 100ms
+#  profiles:
+#    active: default
+##foundation专用配置
+#foundation :
+#  log :
+#    persistence : false  #日志持久化到数据库开关
+#  #foundation专用配置
+#  ftp:
+#    host: 127.0.0.1   #主机名或者ip地址
+#    port: 2121        #ftp服务器端口
+#    username: admin   #ftp用户名
+#    password: admin   #ftp密码
+#    charset: UTF-8    #编码
+#    basePath: /       #初始化时ftp服务器路径
+#  jackrabbit:
+#    OpenOfficeTimeout: 15
+#    PDFThreads: false
+#    PDFThreadPorts: 8101,8102,8103,8104
+#    OpenOffice_Home: /opt/openoffice4
+#    convertPDF: Office2Pdf
+#    webServiceUrl: http://localhost:80/MainWebService.asmx?wsdl
+#  file-storage:
+#    minio:
+#      endpoint: ${reach.minio.endpoint}
+#      accessKey: ${reach.minio.accessKey}
+#      secretKey: ${reach.minio.secretKey}
+#  auditLog:
+#    #preConfig 用于配置 日志配置内容 所处位置 可以为文件形式 或 nacos配置中心形式。两种形式 二选一
+#    preConfig:
+#      #文件 形式 path 为文件全路径
+#      type: file
+#      path: classpath:log_config.properties
+#      #nacos 形式
+#      #type: nacos
+#      #serverAddr: http://192.168.112.143:11240
+#      #dataId: testLogConfig
+#      #group: DEFAULT_GROUP
+#    #当前系统名称 必填
+#    system: plm
+#    #日志 分片规则 非必填 默认分片规则 yearMonthIndexNameImpl
+#    #indexNameGenerator: yearMonthIndexNameImpl
+#    #是否异步存储 非必填 默认 同步    异步：方式在重启 服务器时 若队列中还有未存储的日志 将会丢失（性能优于 同步 方式）
+#    async: true
+#    #异步存储间隔时间（单位秒） 默认 10（秒） 非必填属性
+#    #asyncInterval: 10
+#    #异步存储前 进行文件存储 默认 false 非必填属性
+#    asyncFileSave: true
+#    #获取当前 用户id 的 spel 表达式  (必填)
+#    operator: T(com.glaway.foundation.common.persistence.hibernate.qbc.ResourceUtil).getCurrentUser()
+#    #日志entity id snowflake 所需 workId 必填
+#    workerId: 4
+#    #日志内容 AES 加密 key 非必填 默认 glaway123
+#    operateLogDefaultTemplate: '用户{#_operator?.userName} {#_uri_desc}：操作成功'
+#    logTargetName: oracle
+#    aesKey: glaway123
+#    #新旧审计日志切换开关 为true时使用新版审计日志，为false时使用旧版审计日志
+#    start: true
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      show-details: always
+#  health:
+#    rabbit:
+#      enabled: false
+#    elasticsearch:
+#      enabled: false
+#
+#
+#springfox:
+#  documentation:
+#    swagger:
+#      v2:
+#        path: /v2/api-docs.do
+#
+#logging:
+#  config: classpath:logback-spring.xml
+#  level:
+#    root: warn
+#  file:
+#    path: ./logs
+#
+##plm审计日志配置
+#plm :
+#  log :
+#    persistence : true  #日志持久化到数据库开关
+#
+#infinite:
+#  dr:
+#    publish:
+#      type: 1
+#  mq:
+#    rocket:
+#      servers: reach:9876
+#    type: rocket
+#seata:
+#  tx-service-group: ${spring.application.name}
+#  service:
+#    vgroupMapping:
+#      pride-cg-service: gtx
+#  registry:
+#    type: nacos
+#    nacos:
+#      application: seata-server
+#      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+#      group: SEATA_GROUP
+#      namespace: gtx
+#  client:
+#    undo:
+#      log-serialization: kryo
+#    rm:
+#      lock:
+#        retry-policy-branch-rollback-on-conflict: false
+#        retry-interval: 100
+#        retry-times: 200
+#  enabled: true
+#elasticsearch:
+#  uris: reach:11220
+
+spring:
+  # 邮件配置
+  mail:
+    # 邮件服务器地址
+    host: smtp.qq.com
+    # 你的邮箱地址
+    username: 616664038@qq.com
+    # 授权码
+    password: wszxszclmgbkbfdi
+    # 编码格式
+    default-encoding: utf-8
+    # 协议
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+#  profiles:
+#    active: test
+jw@t:
+  ttl: 60
+  secret: qweqrqr
+
+
+logging:
+  level:
+    com.alibaba.cloud.nacos: DEBUG
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--现在的namespace对应UserDao的全限定类名-->
+<mapper namespace="com.example.ykcloud.mapper.LoginMapper">
+    <insert id="saveloginList">
+        insert into emp (id,name,deg,salary,dept,email)
+        values
+        <foreach collection="list" item="item" separator="union all">
+            (#{item.id},#{item.name},#{item.deg},#{item.salary},#{item.dept},#{item.email})
+        </foreach>
+    </insert>
+
+    <select id="selectAll" resultType="com.example.ykcloud.vo.EmpVo">
+        select *
+        from emp
+    </select>
+
+    <delete id="deleteEmpList">
+
+    </delete>
+</mapper>

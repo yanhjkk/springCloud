@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--现在的namespace对应UserDao的全限定类名-->
+<mapper namespace="com.example.ykcloud.mapper.EmailMapper">
+
+    <select id="getEmailByName" resultType="java.lang.String">
+        select email from emp
+        <where>
+            <if test="name !=null and name !=''">
+                and name = #{name}
+            </if>
+        </where>
+    </select>
+    <select id="getName" resultType="java.lang.String">
+        select name from emp
+        <where>
+            <if test="name !=null and name !=''">
+                and name =#{name}
+            </if>
+        </where>
+    </select>
+
+</mapper>

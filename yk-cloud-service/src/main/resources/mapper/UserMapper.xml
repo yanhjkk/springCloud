@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--现在的namespace对应UserDao的全限定类名-->
+<mapper namespace="com.example.ykcloud.mapper.UserMapper">
+
+    <sql id="allColumns">
+        u.id, u.username, u.password ,u.userId
+    </sql>
+    <select id="getUserSelective" parameterType="com.example.ykcloud.entity.User" resultType="com.example.ykcloud.entity.User">
+        SELECT
+        <include refid="allColumns" />
+        FROM USER u WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND u.name LIKE CONCAT('%', #{userName}, '%')
+        </if>
+        <if test="password != null and password != ''">
+            AND u.password =#{password}
+        </if>
+    </select>
+    <select id="getUserByPrimary" parameterType="java.lang.Integer" resultType="com.example.ykcloud.entity.User">
+        SELECT <include refid="allColumns" /> FROM USER as u WHERE u.id =#{id}
+    </select>
+    <select id="getUserByName" parameterType="java.lang.String" resultType="com.example.ykcloud.entity.User">
+        SELECT <include refid="allColumns" /> FROM USER as u WHERE u.username =#{userName}
+        limit 1
+    </select>
+    <select id="getUserName" resultType="java.lang.String">
+        select userName from
+        USER
+<where>
+    <if test="userId != null and userId != ''">
+        AND user_id = #{userId}
+    </if>
+    <if test="password != null and password != ''">
+        AND password = #{password}
+    </if>
+</where>
+    </select>
+</mapper>
